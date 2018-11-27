@@ -11,6 +11,7 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-7
+            - libudev-dev
       env:
         - COMPILER=g++-7 C_COMPILER=gcc-7 BUILD_TYPE=Debug
 script:
