@@ -1,3 +1,24 @@
+
+---
+
+## The main purpose of this fork project ##
+  1. Use Travis-CI server for build validation.
+  2. Fix/improve some issue. [The original project is no longer maintain?](https://github.com/signal11/hidapi)
+
+---
+
+## Code Status: ##
+Continuous integration|Status| Build operating system
+------------|---------|---------
+Travis-CI   |[![Build Status](https://travis-ci.org/GerryFerdinandus/bittorrent-tracker-editor.svg?branch=master)](https://travis-ci.org/GerryFerdinandus/hidapi)        |Linux and macOS
+
+---
+
+## Below this line is the original readme.txt from https://github.com/signal11/hidapi ##
+
+---
+
+
          HIDAPI library for Windows, Linux, FreeBSD and Mac OS X
         =========================================================
 
@@ -45,7 +66,7 @@ and receiving of input, output, and feature reports.  The sample program,
 which communicates with a heavily hacked up version of the Microchip USB
 Generic HID sample looks like this (with error checking removed for
 simplicity):
-
+```
 #ifdef WIN32
 #include <windows.h>
 #endif
@@ -108,7 +129,7 @@ int main(int argc, char* argv[])
 
 	return 0;
 }
-
+```
 If you have your own simple test programs which communicate with standard
 hardware development boards (such as those from Microchip, TI, Atmel,
 FreeScale and others), please consider sending me something like the above
