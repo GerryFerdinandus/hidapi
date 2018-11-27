@@ -1,0 +1,17 @@
+-------------  Windows OS:
+1)
+download from http://www.doxygen.org/download.html#srcbin
+doxygen-1.8.14-setup.exe
+Install it
+
+2)
+download from https://graphviz.gitlab.io/_pages/Download/Download_windows.html
+graphviz-2.38.msi
+Install it
+Add path to the bin folder
+C:\Program Files (x86)\Graphviz2.38\bin
+
+-------------  Linux OS:
+sudo apt-get install -y doxygen graphviz
+
+
