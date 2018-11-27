@@ -14,8 +14,22 @@ matrix:
             - libudev-dev
       env:
         - COMPILER=g++-7 C_COMPILER=gcc-7 BUILD_TYPE=Debug
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-8
+            - libudev-dev
+      env:
+        - COMPILER=g++-8 C_COMPILER=gcc-8 BUILD_TYPE=Debug
+    - os: osx
+      osx_image: xcode10
+      env:
+        - COMPILER=clang++ C_COMPILER=clang BUILD_TYPE=Debug
 script:
   - mkdir build
   - cd build
   - cmake -DCMAKE_C_COMPILER=${C_COMPILER} -DCMAKE_CXX_COMPILER=${COMPILER} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
-  - make
+  - cmake --build . -- -j2
