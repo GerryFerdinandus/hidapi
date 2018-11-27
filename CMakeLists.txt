@@ -32,17 +32,17 @@ set(COMPILER_OPTIMIZER_ON "-O2")
 set(COMPILER_OPTIMIZER_OFF "-O0")
 
 #  Possible values are empty, Debug, Release, RelWithDebInfo and MinSizeRel.
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     list(APPEND BUILD_TEXT "This is a CMake DEBUG build mode.")
 endif ()
 
-if (CMAKE_BUILD_TYPE STREQUAL "Release")
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     list(APPEND BUILD_TEXT "This is a CMake RELEASE build mode.")
 endif ()
 
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     set(COMPILER_OPTIMIZER ${COMPILER_OPTIMIZER_OFF})
-else (CMAKE_BUILD_TYPE STREQUAL "Debug")
+else ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     set(COMPILER_OPTIMIZER ${COMPILER_OPTIMIZER_ON})
 endif ()
 
@@ -73,7 +73,7 @@ add_subdirectory(cmake_multi_os)
 #endif ()
 
 # only in release build create the doxygen files
-if (CMAKE_BUILD_TYPE STREQUAL "Release")
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     #add doxygen generation
     include(cmake/doxygen.cmake)
 endif ()
