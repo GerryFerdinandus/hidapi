@@ -14,6 +14,12 @@ Travis-CI   |[![Build Status](https://travis-ci.org/GerryFerdinandus/bittorrent-
 
 ---
 
+## Documentation: ##
+
+[![Documentation](https://codedocs.xyz/GerryFerdinandus/hidapi.svg)](https://codedocs.xyz/GerryFerdinandus/hidapi/group__API.html)
+
+---
+
 ## Below this line is the original readme.txt from https://github.com/signal11/hidapi ##
 
 ---
