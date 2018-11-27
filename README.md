@@ -66,7 +66,7 @@ and receiving of input, output, and feature reports.  The sample program,
 which communicates with a heavily hacked up version of the Microchip USB
 Generic HID sample looks like this (with error checking removed for
 simplicity):
-```
+```C
 #ifdef WIN32
 #include <windows.h>
 #endif
