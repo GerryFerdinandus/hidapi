@@ -132,6 +132,7 @@ extern "C" {
 #endif /* HIDAPI_USE_DDK */
 
 struct hid_device_ {
+        HANDLE device_handle_write_sync;
 		HANDLE device_handle;
 		BOOL blocking;
 		USHORT output_report_length;
@@ -146,6 +147,7 @@ struct hid_device_ {
 static hid_device *new_hid_device()
 {
 	hid_device *dev = (hid_device*) calloc(1, sizeof(hid_device));
+    dev->device_handle_write_sync = INVALID_HANDLE_VALUE;
 	dev->device_handle = INVALID_HANDLE_VALUE;
 	dev->blocking = TRUE;
 	dev->output_report_length = 0;
@@ -241,6 +243,24 @@ static HANDLE open_device(const char *path, BOOL enumerate)
 
 	return handle;
 }
+
+static HANDLE open_device_write_sync(const char *path, BOOL enumerate)
+{
+  HANDLE handle;
+  DWORD desired_access = (enumerate)? 0: GENERIC_WRITE;
+  DWORD share_mode = FILE_SHARE_READ|FILE_SHARE_WRITE;
+
+  handle = CreateFileA(path,
+                       desired_access,
+                       share_mode,
+                       NULL,
+                       OPEN_EXISTING,
+                       FILE_ATTRIBUTE_NORMAL,
+                       0);
+
+  return handle;
+}
+
 
 int HID_API_EXPORT hid_init(void)
 {
@@ -567,6 +587,7 @@ HID_API_EXPORT hid_device * HID_API_CALL hid_open_path(const char *path)
 
 	/* Open a handle to the device */
 	dev->device_handle = open_device(path, FALSE);
+    dev->device_handle_write_sync =  open_device_write_sync(path, FALSE);
 
 	/* Check validity of write_handle. */
 	if (dev->device_handle == INVALID_HANDLE_VALUE) {
@@ -610,12 +631,9 @@ err:
 
 int HID_API_EXPORT HID_API_CALL hid_write(hid_device *dev, const unsigned char *data, size_t length)
 {
-	DWORD bytes_written;
+	DWORD bytes_written = 0;
 	BOOL res;
-
-	OVERLAPPED ol;
 	unsigned char *buf;
-	memset(&ol, 0, sizeof(ol));
 
 	/* Make sure the right number of bytes are passed to WriteFile. Windows
 	   expects the number of bytes which are in the _longest_ report (plus
@@ -635,32 +653,22 @@ int HID_API_EXPORT HID_API_CALL hid_write(hid_device *dev, const unsigned char *
 		length = dev->output_report_length;
 	}
 
-	res = WriteFile(dev->device_handle, buf, length, NULL, &ol);
+	res = WriteFile(dev->device_handle_write_sync, buf, length, &bytes_written, NULL);
 	
 	if (!res) {
-		if (GetLastError() != ERROR_IO_PENDING) {
-			/* WriteFile() failed. Return error. */
-			register_error(dev, "WriteFile");
-			bytes_written = -1;
-			goto end_of_function;
-		}
-	}
-
-	/* Wait here until the write is done. This makes
-	   hid_write() synchronous. */
-	res = GetOverlappedResult(dev->device_handle, &ol, &bytes_written, TRUE/*wait*/);
-	if (!res) {
-		/* The Write operation failed. */
+		/* WriteFile() failed. Return error. */
 		register_error(dev, "WriteFile");
-		bytes_written = -1;
-		goto end_of_function;
 	}
 
-end_of_function:
-	if (buf != data)
+	if (buf != data) {
 		free(buf);
+    }
 
-	return bytes_written;
+    if (res) {
+		return (int) bytes_written;
+    } else {
+		return -1;
+    }
 }
 
 
