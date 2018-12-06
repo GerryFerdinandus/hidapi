@@ -704,7 +704,7 @@ hid_device * HID_API_EXPORT hid_open_path(const char *path)
 	}
 
 	/* Open the IOHIDDevice */
-	IOReturn ret = IOHIDDeviceOpen(dev->device_handle, kIOHIDOptionsTypeSeizeDevice);
+	IOReturn ret = IOHIDDeviceOpen(dev->device_handle, kIOHIDOptionsTypeNone);
 	if (ret == kIOReturnSuccess) {
 		char str[32];
 
