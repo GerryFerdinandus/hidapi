@@ -30,8 +30,17 @@
 #include <wchar.h>
 
 #ifdef _WIN32
-      #define HID_API_EXPORT __declspec(dllexport)
-      #define HID_API_CALL
+
+/** fix: hide the HID library dll export, if used inside other DLL **/
+/** can be activated via compiler flag gcc ... -DUSE_EXPORT_DLL **/
+#ifdef USE_EXPORT_DLL
+     #define HID_API_EXPORT __declspec(dllexport)
+#else
+#define HID_API_EXPORT /**< API export macro */
+#endif
+
+#define HID_API_CALL /**< API call macro */
+
 #else
       #define HID_API_EXPORT /**< API export macro */
       #define HID_API_CALL /**< API call macro */
