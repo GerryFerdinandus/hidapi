@@ -166,6 +166,7 @@ static void free_hid_device(hid_device *dev)
 {
 	CloseHandle(dev->ol.hEvent);
 	CloseHandle(dev->device_handle);
+	CloseHandle(dev->device_handle_write_sync);
 	LocalFree(dev->last_error_str);
 	free(dev->read_buf);
 	free(dev);
