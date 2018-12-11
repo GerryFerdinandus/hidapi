@@ -10,7 +10,7 @@
 ## Code Status: ##
 Continuous integration|Status| Build operating system
 ------------|---------|---------
-Travis-CI   |[![Build Status](https://travis-ci.org/GerryFerdinandus/bittorrent-tracker-editor.svg?branch=master)](https://travis-ci.org/GerryFerdinandus/hidapi)        |Linux and macOS
+Travis-CI   |[![Build Status](https://travis-ci.org/GerryFerdinandus/bittorrent-tracker-editor.svg?branch=master)](https://travis-ci.org/GerryFerdinandus/hidapi)        |Linux, macOS and Windows
 
 ---
 

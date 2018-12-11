@@ -28,8 +28,21 @@ matrix:
       osx_image: xcode10
       env:
         - COMPILER=clang++ C_COMPILER=clang BUILD_TYPE=Debug
+    - os: windows
+      env:
+        - COMPILER=g++ C_COMPILER=gcc BUILD_TYPE=Debug
+
+
+before_install:
+- if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then export EXTRA_OPTIONS="-DCMAKE_SH='CMAKE_SH-NOTFOUND'"; fi
+- if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then export CC="C:/ProgramData/chocolatey/lib/mingw/tools/install/mingw64/bin/gcc.exe"; fi
+- if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then export CXX="C:/ProgramData/chocolatey/lib/mingw/tools/install/mingw64/bin/g++.exe"; fi
+- mkdir -p build && cd build
+
+install:
+- if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install mingw -y; fi
+
 script:
-  - mkdir build
-  - cd build
-  - cmake -DCMAKE_C_COMPILER=${C_COMPILER} -DCMAKE_CXX_COMPILER=${COMPILER} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
-  - cmake --build . -- -j2
+- if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then cmake -DCMAKE_C_COMPILER=${C_COMPILER} -DCMAKE_CXX_COMPILER=${COMPILER} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ${EXTRA_OPTIONS} ..; fi
+- if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then cmake -G "MinGW Makefiles" -DCMAKE_C_COMPILER=${C_COMPILER} -DCMAKE_CXX_COMPILER=${COMPILER} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ${EXTRA_OPTIONS} ..; fi
+- cmake --build . -- -j2
