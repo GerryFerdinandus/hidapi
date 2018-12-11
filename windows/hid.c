@@ -449,7 +449,7 @@ struct hid_device_info HID_API_EXPORT * HID_API_CALL hid_enumerate(unsigned shor
 			if (str) {
 				len = strlen(str);
 				cur_dev->path = (char*) calloc(len+1, sizeof(char));
-				strncpy(cur_dev->path, str, len+1);
+				strncpy_s(cur_dev->path, len+1, str, len+1);
 				cur_dev->path[len] = '\0';
 			}
 			else
