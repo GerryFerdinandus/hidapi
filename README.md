@@ -11,12 +11,7 @@
 Continuous integration|Status| Build operating system
 ------------|---------|---------
 Travis-CI   |[![Build Status](https://travis-ci.org/GerryFerdinandus/bittorrent-tracker-editor.svg?branch=master)](https://travis-ci.org/GerryFerdinandus/hidapi)        |Linux, macOS and Windows
-
----
-
-## Sonarcloud.io: ##
-
-[![sonarcloud](https://sonarcloud.io/api/project_badges/measure?project=GerryFerdinandus_hidapi&metric=alert_status)](https://sonarcloud.io/dashboard?id=GerryFerdinandus_hidapi)
+Sonarcloud.io|[![sonarcloud](https://sonarcloud.io/api/project_badges/measure?project=GerryFerdinandus_hidapi&metric=alert_status)](https://sonarcloud.io/dashboard?id=GerryFerdinandus_hidapi)|Linux
 
 ---
 
