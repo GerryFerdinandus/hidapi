@@ -62,6 +62,9 @@ fabric.properties
 # ignore CMake build folder
 build
 
+# apple filesystem
+.DS_Store
+
 # Explicit for this HID project. This is copy from the original HID .gitignore
 # Autotools-added generated files
 Makefile.in
