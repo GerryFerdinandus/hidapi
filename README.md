@@ -14,6 +14,12 @@ Travis-CI   |[![Build Status](https://travis-ci.org/GerryFerdinandus/bittorrent-
 
 ---
 
+## Sonarcloud.io: ##
+
+[![sonarcloud](https://sonarcloud.io/api/project_badges/measure?project=GerryFerdinandus_hidapi&metric=alert_status)](https://sonarcloud.io/dashboard?id=GerryFerdinandus_hidapi)
+
+---
+
 ## Documentation: ##
 
 [![Documentation](https://codedocs.xyz/GerryFerdinandus/hidapi.svg)](https://codedocs.xyz/GerryFerdinandus/hidapi/group__API.html)
